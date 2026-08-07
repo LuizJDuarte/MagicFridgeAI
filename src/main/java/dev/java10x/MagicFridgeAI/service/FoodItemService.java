@@ -31,6 +31,10 @@ public class FoodItemService {
         return foodPorId.orElse(null);
     }
 
+    public Optional<Fooditem> buscarPorId(Long id){
+        return repository.findById(id);
+    }
+
     public Fooditem atualizar(Long id, Fooditem foodAtualizado){
         if(repository.existsById(id)){
             foodAtualizado.setId(id);

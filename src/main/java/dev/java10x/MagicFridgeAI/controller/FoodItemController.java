@@ -26,8 +26,9 @@ public class FoodItemController {
 
     // GET
     @GetMapping("/food/listar")
-    public List<Fooditem> listarTodos(){
-        return service.listar();
+    public ResponseEntity<List<Fooditem>> listarTodos(){
+        List<Fooditem> lista = service.listar();
+        return ResponseEntity.ok(lista);
     }
 
     // GET - Por ID
@@ -38,13 +39,20 @@ public class FoodItemController {
 
     // UPDATE
     @PutMapping("/food/atualizar/{id}")
-    public Fooditem atualizar(@PathVariable Long id, @RequestBody Fooditem foodItemAtualizado){
-        return service.atualizar(id,foodItemAtualizado);
+    public ResponseEntity<Fooditem> atualizar(@PathVariable Long id, @RequestBody Fooditem foodItemAtualizado){
+        return service.buscarPorId(id)
+                .map(itemExistente -> {
+                    Fooditem atualizado = service.atualizar(itemExistente.getId() ,foodItemAtualizado);
+                    return ResponseEntity.ok(atualizado);
+                })
+                .orElse(ResponseEntity.notFound().build());
+//        return service.atualizar(id,foodItemAtualizado);
     }
 
     // DELETE
     @DeleteMapping("food/delete/{id}")
-    public void deletar(@PathVariable Long id){
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
         service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
