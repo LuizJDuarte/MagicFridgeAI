@@ -18,27 +18,27 @@ public class FoodItemController {
     }
 
     // POST
-    @PostMapping("food/criar")
+    @PostMapping("/criar")
     public ResponseEntity<Fooditem> criar(@RequestBody Fooditem fooditem){
         Fooditem salvo = service.salvar(fooditem);
         return ResponseEntity.ok(salvo);
     }
 
     // GET
-    @GetMapping("/food/listar")
+    @GetMapping("/listar")
     public ResponseEntity<List<Fooditem>> listarTodos(){
         List<Fooditem> lista = service.listar();
         return ResponseEntity.ok(lista);
     }
 
     // GET - Por ID
-    @GetMapping("food/listar/{id}")
+    @GetMapping("/listar/{id}")
     public Fooditem listarPorId(@PathVariable Long id){
         return service.listarPorId(id);
     }
 
     // UPDATE
-    @PutMapping("/food/atualizar/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<Fooditem> atualizar(@PathVariable Long id, @RequestBody Fooditem foodItemAtualizado){
         return service.buscarPorId(id)
                 .map(itemExistente -> {
@@ -50,7 +50,7 @@ public class FoodItemController {
     }
 
     // DELETE
-    @DeleteMapping("food/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         service.deletar(id);
         return ResponseEntity.noContent().build();
