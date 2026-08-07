@@ -5,6 +5,7 @@ import dev.java10x.MagicFridgeAI.repository.FoodItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FoodItemService {
@@ -23,6 +24,11 @@ public class FoodItemService {
 
     public List<Fooditem> listar(){
         return repository.findAll();
+    }
+
+    public Fooditem listarPorId(Long id){
+        Optional<Fooditem> foodPorId = repository.findById(id);
+        return foodPorId.orElse(null);
     }
 
     public Fooditem atualizar(Long id, Fooditem foodAtualizado){

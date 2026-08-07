@@ -30,6 +30,12 @@ public class FoodItemController {
         return service.listar();
     }
 
+    // GET - Por ID
+    @GetMapping("food/listar/{id}")
+    public Fooditem listarPorId(@PathVariable Long id){
+        return service.listarPorId(id);
+    }
+
     // UPDATE
     @PutMapping("/food/atualizar/{id}")
     public Fooditem atualizar(@PathVariable Long id, @RequestBody Fooditem foodItemAtualizado){
@@ -38,7 +44,7 @@ public class FoodItemController {
 
     // DELETE
     @DeleteMapping("food/delete/{id}")
-    public void deletar(){
-        return service.deletar(id);
+    public void deletar(@PathVariable Long id){
+        service.deletar(id);
     }
 }
